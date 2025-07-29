@@ -10,7 +10,8 @@ void Push() {
 
 }
 
-void Insert(struct Node** head) {
+// Inserting a value at Nth position
+void Insert(struct Node** head, int pos) {
   struct Node* temp = *head; 
 }
 
