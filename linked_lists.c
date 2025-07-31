@@ -13,6 +13,19 @@ void Push(struct Node** headPointer, int value) {
   *headPointer = temp;
 }
 
+// Insert a value at the end of the list
+void Append(struct Node* tempHead, int value) {
+  struct Node* temp = (struct Node*) malloc(sizeof(struct Node));
+  temp->data = value;
+  temp->next = NULL;
+
+  while (tempHead->next != NULL) {
+    tempHead = tempHead->next;
+  }
+
+  tempHead->next = temp;
+}
+
 // Inserting a value at Nth position // List: 5, 1, 4, 3; POS: 2 -> 7
 void Insert(struct Node** headPointer, int data, int pos) {
   struct Node* tempHead = *headPointer;
@@ -28,13 +41,14 @@ void Insert(struct Node** headPointer, int data, int pos) {
   tempHead->next = temp;
 }
 
+// Prints elements in a list
 void Print(struct Node* temp) {
   while (temp != NULL) {
-    printf("%d ", temp->data);
+    printf("%d -> ", temp->data);
     temp = temp->next;
   }
   
-  printf("\n");
+  printf("NULL\n");
 }
 
 int main(void) {
@@ -46,11 +60,21 @@ int main(void) {
   Push(&list, 5);  
 
   // 5, 1, 4, 3
-  printf("Before: ");
+  printf("\nBefore: ");
   Print(list);
-  Insert(&list, 7, 2);
+  Insert(&list, 7, 3);
   printf("After: ");
   Print(list);
+
+  printf("\n-----------------------\n");
+ 
+  printf("\nBefore: ");
+  Print(list);
+  Append(list, 9);
+  printf("After: ");
+  Print(list);
+
+  printf("\n");
 
   return 0;
 }
