@@ -13,9 +13,19 @@ void Push(struct Node** headPointer, int value) {
   *headPointer = temp;
 }
 
-// Inserting a value at Nth position
-void Insert(struct Node** head, int pos) {
-  struct Node* temp = *head; 
+// Inserting a value at Nth position // List: 5, 1, 4, 3; POS: 2 -> 7
+void Insert(struct Node** headPointer, int data, int pos) {
+  struct Node* tempHead = *headPointer;
+  struct Node* temp = (struct Node*) malloc(sizeof(struct Node));
+  
+  temp->data = data;
+
+  for(int x = 1; x < pos - 1; x++) {
+      tempHead = tempHead->next;
+  }
+
+  temp->next = tempHead->next;
+  tempHead->next = temp;
 }
 
 void Print(struct Node* temp) {
@@ -36,7 +46,10 @@ int main(void) {
   Push(&list, 5);  
 
   // 5, 1, 4, 3
-  
+  printf("Before: ");
+  Print(list);
+  Insert(&list, 7, 2);
+  printf("After: ");
   Print(list);
 
   return 0;
