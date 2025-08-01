@@ -6,6 +6,21 @@ struct Node {
   struct Node* next;
 };
 
+void ReverseList(struct Node** headPointer) {
+  struct Node *current, *prev, *next;
+  current = *headPointer;
+  prev = NULL;
+
+  while(current != NULL) {
+    next = current->next;
+    current->next = prev;
+    prev = current;
+    current = next;
+  }
+
+  *headPointer = prev;
+}
+
 void Push(struct Node** headPointer, int value) {
   struct Node* temp = (struct Node*) malloc(sizeof(struct Node*));
   temp->data = value;
@@ -58,8 +73,15 @@ int main(void) {
   Push(&list, 2);  
   Push(&list, 3);  
   Push(&list, 5);  
+  
+  printf("\n");
 
-  // 5, 1, 4, 3
+  printf("Initial List: \n");
+  Print(list);
+
+  printf("\n-----------------------\n");
+  printf("Insert function\n");
+
   printf("\nBefore: ");
   Print(list);
   Insert(&list, 7, 3);
@@ -67,10 +89,20 @@ int main(void) {
   Print(list);
 
   printf("\n-----------------------\n");
+  printf("Append function\n");
  
   printf("\nBefore: ");
   Print(list);
   Append(list, 9);
+  printf("After: ");
+  Print(list);
+
+  printf("\n-----------------------\n");
+  printf("Reverse List function\n");
+
+  printf("\nBefore: ");
+  Print(list);
+  ReverseList(&list);
   printf("After: ");
   Print(list);
 
