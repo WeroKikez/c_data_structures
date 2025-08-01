@@ -45,9 +45,15 @@ void Append(struct Node* tempHead, int value) {
 void Insert(struct Node** headPointer, int data, int pos) {
   struct Node* tempHead = *headPointer;
   struct Node* temp = (struct Node*) malloc(sizeof(struct Node));
-  
+
   temp->data = data;
 
+  if(pos == 1) {
+    temp->next = *headPointer;
+    *headPointer = temp;
+    return;
+  }
+  
   for(int x = 1; x < pos - 1; x++) {
       tempHead = tempHead->next;
   }
@@ -57,16 +63,25 @@ void Insert(struct Node** headPointer, int data, int pos) {
 }
 
 // 5, 1, 4, 3; 3
-void Delete(struct Node* tempHead, int pos) {
-  struct Node* temp;
+void Delete(struct Node** headPointer, int pos) {
+  struct Node *temp;
+
+  if(pos == 1) {
+    temp = *headPointer;
+    *headPointer = (*headPointer)->next;
+    free(temp);
+    return;
+  }
+
+  struct Node* current = *headPointer;
 
   for(int x = 1; x < pos; x++) {
-      temp = tempHead;
-      tempHead = tempHead->next;
+    temp = current;
+    current = current->next;
   }
   
-  temp->next = tempHead->next;
-  free(tempHead);
+  temp->next = current->next;
+  free(current);
 }
 
 // Prints elements in a list
@@ -97,7 +112,7 @@ int main(void) {
 
   printf("\nBefore: ");
   Print(list);
-  Insert(&list, 7, 3);
+  Insert(&list, 7, 2);
   printf("After: ");
   Print(list);
 
@@ -124,7 +139,7 @@ int main(void) {
 
   printf("\nBefore: ");
   Print(list);
-  Delete(list, 3);
+  Delete(&list, 1);
   printf("After: ");
   Print(list);
 
