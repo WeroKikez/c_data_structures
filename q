@@ -60,7 +60,7 @@ void Insert(struct Node** headPointer, int data, int pos) {
 void Delete(struct Node* tempHead, int pos) {
   struct Node* temp;
 
-  for(int x = 1; x < pos; x++) {
+  for(int x = 1; x < pos + 1; x++) {
       temp = tempHead;
       tempHead = tempHead->next;
   }
