@@ -6,21 +6,40 @@ struct Node {
   struct Node* next;
 };
 
+// Old Reverse function, reverse the list using recursion in the stack; only works with global variable "head"  
+/*
 struct Node* head;
 
-// Reverse the list using recursion in the stack; only works with global variable "head"  
 void Reverse(struct Node* p) {
   if(p->next == NULL) {
     head = p;
-    return; 
+    return;
   }
-  Reverse(p->next);
+  Reverse(p->next, headPointer);
+  struct Node* temp = p->next;
+  temp->next = p;
+  p->next = NULL;
+}
+*/
+
+// New Reverse function keeping reference to the head node pointer
+void Reverse(struct Node* p, struct Node** headPointer) {
+  if(p->next == NULL) {
+    *headPointer = p;
+    return;
+  }
+  Reverse(p->next, headPointer);
   struct Node* temp = p->next;
   temp->next = p;
   p->next = NULL;
 }
 
 // TODO: Create Rereverse function that works for any given list 
+
+void ReverseListRecursion(struct Node** headPointer) {
+  struct Node* tempHead = *headPointer;
+  Reverse(tempHead, headPointer);
+}
 
 void ReverseList(struct Node** headPointer) {
   struct Node *current, *prev, *next;
@@ -159,11 +178,11 @@ int main(void) {
   printf("After: ");
   Print(list);
 
-  printf("\n");
-
   printf("\n-----------------------\n");
   printf("Reverse with Recursion function\n");
 
+  // For old Reverse function which required a global head variable
+  /*
   Push(&head, 6);
   Push(&head, 9);
   Push(&head, 0);
@@ -175,6 +194,13 @@ int main(void) {
   Reverse(head);
   printf("After: ");
   Print(head);
+  */
+
+  printf("\nBefore: ");
+  Print(list);
+  ReverseListRecursion(&list);
+  printf("After: ");
+  Print(list);
 
   printf("\n");
 
