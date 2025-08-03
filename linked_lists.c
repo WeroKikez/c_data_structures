@@ -6,6 +6,22 @@ struct Node {
   struct Node* next;
 };
 
+struct Node* head;
+
+// Reverse the list using recursion in the stack; only works with global variable "head"  
+void Reverse(struct Node* p) {
+  if(p->next == NULL) {
+    head = p;
+    return; 
+  }
+  Reverse(p->next);
+  struct Node* temp = p->next;
+  temp->next = p;
+  p->next = NULL;
+}
+
+// TODO: Create Rereverse function that works for any given list 
+
 void ReverseList(struct Node** headPointer) {
   struct Node *current, *prev, *next;
   current = *headPointer;
@@ -142,6 +158,23 @@ int main(void) {
   Delete(&list, 1);
   printf("After: ");
   Print(list);
+
+  printf("\n");
+
+  printf("\n-----------------------\n");
+  printf("Reverse with Recursion function\n");
+
+  Push(&head, 6);
+  Push(&head, 9);
+  Push(&head, 0);
+  Push(&head, 1);
+  Push(&head, 3);
+
+  printf("\nBefore: ");
+  Print(head);
+  Reverse(head);
+  printf("After: ");
+  Print(head);
 
   printf("\n");
 
