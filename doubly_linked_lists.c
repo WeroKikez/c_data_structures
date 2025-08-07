@@ -34,6 +34,26 @@ void InsertAtTail(struct Node* tempHead, int value) {
   tempHead->next = temp;
 }
 
+void Insert(struct Node** headPointer, int pos, int value) {
+  if(pos == 1)
+    InsertAtHead(headPointer, value);
+
+  struct Node* temp = (struct Node*) malloc(sizeof(struct Node));
+  temp->data = value;
+  
+  struct Node* tempHead = *headPointer;
+
+  for(int i = 1; i < pos; i++) {
+    tempHead = tempHead->next;
+  }
+
+  temp->next = tempHead;
+  tempHead->prev->next = temp;
+  temp->prev = tempHead->prev;
+  tempHead->prev = temp;
+}
+
+
 void Print(struct Node* tempHead) {
   // printf("Forward\n");     
 
@@ -44,7 +64,6 @@ void Print(struct Node* tempHead) {
   }
 
   printf("NULL\n");
-  printf("\n");
 }
 
 void ReversePrint(struct Node* tempHead) {
@@ -80,15 +99,27 @@ int main(void) {
   InsertAtHead(&list, 9);
   // 9 -> 3 -> 6 -> 4
   
+  printf("\n");
   Print(list);
   printf("\n-------------------------------\n");
 
   printf("Inserting At Tail\n");
-  printf("Before: ");
+  printf("\nBefore: ");
   Print(list);
   InsertAtTail(list, 9);
   printf("After: ");
   Print(list);
+
+  printf("\n-------------------------------\n");
+
+  printf("Inserting At 3rd Position\n");
+  printf("\nBefore: ");
+  Print(list);
+  Insert(&list, 3, 10);
+  printf("After: ");
+  Print(list);
+
+  printf("\n");
   
   return 0;
 }
